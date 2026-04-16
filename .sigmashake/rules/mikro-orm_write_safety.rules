@@ -6,7 +6,7 @@ rule mikro-orm-block-unsafe-patterns {
   priority 90
   severity error
   DENY write
-  IF path GLOB "**/*" AND content CONTAINS "UNSAFE_mikro-orm_PATTERN"
+  IF path GLOB "**/*" AND content CONTAINS "em.execute"
   MESSAGE "Blocked an unsafe pattern in mikro-orm. Use the recommended best practices for 2025/2026."
 }
 
@@ -14,7 +14,7 @@ rule mikro-orm-force-updated-api {
   enabled true
   priority 80
   severity warning
-  ASK write
-  IF path GLOB "**/*" AND content CONTAINS "OLD_mikro-orm_API"
+  LOG write
+  IF path GLOB "**/*" AND content CONTAINS "MikroORM.init()"
   MESSAGE "You are using an outdated API for mikro-orm. Please upgrade to the newer API."
 }
